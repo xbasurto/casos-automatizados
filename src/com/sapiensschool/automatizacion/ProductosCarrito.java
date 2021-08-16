@@ -45,6 +45,16 @@ public class ProductosCarrito {
 		//Informacion del carrito con producto agregado
 		WebElement productoCargado = customDriver.findElement(By.cssSelector("#cart > button"));
 		System.out.println(productoCargado.getText());
+		// CP002 Borrar Elementos del carrito de compras
+		//Click boton carrito
+		customDriver.findElement(By.cssSelector("#cart > button")).click();
+		Thread.sleep(3000);
+		//Click boton remover producto
+		customDriver.findElement(By.cssSelector("#cart > ul > li:nth-child(1) > table > tbody > tr > td:nth-child(5) > button")).click();
+		Thread.sleep(3000);
+		//Informacion del carrito despues de remover producto
+		WebElement productoRemovido = customDriver.findElement(By.cssSelector("#cart > button"));
+		System.out.println(productoRemovido.getText());
 		
 		
 		
