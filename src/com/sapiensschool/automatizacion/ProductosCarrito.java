@@ -4,6 +4,8 @@ package com.sapiensschool.automatizacion;
 
 
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,6 +57,17 @@ public class ProductosCarrito {
 		//Informacion del carrito despues de remover producto
 		WebElement productoRemovido = customDriver.findElement(By.cssSelector("#cart > button"));
 		System.out.println(productoRemovido.getText());
+		//CP003 Agregar 1 Producto al carrito y ver carrito
+		customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(2) > div > div.button-group > button:nth-child(1)")).click();
+		Thread.sleep(3000);
+		customDriver.findElement(By.cssSelector("#cart > button")).click();
+		Thread.sleep(3000);
+		customDriver.findElement(By.cssSelector("#cart > ul > li:nth-child(2) > div > p > a:nth-child(1) > strong")).click();
+		Thread.sleep(3000);
+		customDriver.navigate().back();
+		
+		
+	
 		
 		
 		
