@@ -4,12 +4,14 @@ package com.sapiensschool.automatizacion;
 
 
 
-import java.util.List;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 
 public class ProductosCarrito {
@@ -32,6 +34,7 @@ public class ProductosCarrito {
 		//Informacion del carrito en 0
 		WebElement productosCarrito = customDriver.findElement(By.cssSelector("#cart > button"));
 		System.out.println(productosCarrito.getText());
+		Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"0 item(s) - $0.00");
 		//Informacion Featured
 		WebElement productosVisibles = customDriver.findElement(By.xpath("//*[@id=\"content\"]/div[2]"));
 		System.out.println(productosVisibles.getText());
@@ -47,6 +50,7 @@ public class ProductosCarrito {
 		//Informacion del carrito con producto agregado
 		WebElement productoCargado = customDriver.findElement(By.cssSelector("#cart > button"));
 		System.out.println(productoCargado.getText());
+		Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"1 item(s) - $602.00");
 		// CP002 Borrar Elementos del carrito de compras
 		//Click boton carrito
 		customDriver.findElement(By.cssSelector("#cart > button")).click();
@@ -57,6 +61,7 @@ public class ProductosCarrito {
 		//Informacion del carrito despues de remover producto
 		WebElement productoRemovido = customDriver.findElement(By.cssSelector("#cart > button"));
 		System.out.println(productoRemovido.getText());
+		Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"0 item(s) - $0.00");
 		//CP003 Agregar 1 Producto al carrito y ver carrito
 		customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(2) > div > div.button-group > button:nth-child(1)")).click();
 		Thread.sleep(3000);
@@ -64,12 +69,30 @@ public class ProductosCarrito {
 		Thread.sleep(3000);
 		customDriver.findElement(By.cssSelector("#cart > ul > li:nth-child(2) > div > p > a:nth-child(1) > strong")).click();
 		Thread.sleep(3000);
-		customDriver.navigate().back();
-		
-		
-	
-		
-		
+		//004 Agregar Productos al carrito y ver carrito
+		customDriver.findElement(By.cssSelector("#logo > h1 > a")).click();
+		Thread.sleep(3000);
+		customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(1) > div > div.button-group > button:nth-child(1)")).click();
+		Thread.sleep(3000);
+		customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(3) > div > div.button-group > button:nth-child(1)")).click();
+		Thread.sleep(3000);
+		customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(4) > div > div.button-group > button:nth-child(1)")).click();
+		Thread.sleep(3000);
+		WebElement staticsList = customDriver.findElement(By.id("input-option226"));
+		Select selectedList = new Select(staticsList);
+		selectedList.selectByVisibleText("Red");
+		System.out.println(selectedList.getFirstSelectedOption().getText());
+		Thread.sleep(3000);
+		customDriver.findElement(By.cssSelector("#button-cart")).click();
+		Thread.sleep(3000);
+		customDriver.findElement(By.cssSelector("#cart > button")).click();
+		Thread.sleep(3000);
+		customDriver.findElement(By.cssSelector("#cart > ul > li:nth-child(2) > div > p > a:nth-child(1) > strong")).click();
+		Thread.sleep(3000);
+		WebElement productosVarios = customDriver.findElement(By.cssSelector("#cart > button"));
+		System.out.println(productosVarios.getText());
+		Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"4 item(s) - $969.20");
+		customDriver.close();
 		
 		
 
