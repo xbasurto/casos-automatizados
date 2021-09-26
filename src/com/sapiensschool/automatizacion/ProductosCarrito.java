@@ -1,16 +1,13 @@
 package com.sapiensschool.automatizacion;
-
-
-
-
-
-
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 
@@ -18,7 +15,7 @@ public class ProductosCarrito {
 
 
 	public static void main(String[] args) throws InterruptedException  {
-		// TODO Verificar el correcto funcionamiento del carrito de compras
+		// Suite-Verificar el correcto funcionamiento del carrito de compras
 		// CP001 Agregar Productos al carrito
 		// Abrir Chrome
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\xbasu\\Documents\\driver2\\chromedriver.exe");
@@ -27,8 +24,10 @@ public class ProductosCarrito {
 		//Este comando maximiza la pantalla
 		customDriver.manage().window().maximize();		
 		customDriver.navigate().to("https://winstoncastillo.com/robot-selenium/");
-		//Imprime la url del sitio web
-		System.out.println(customDriver.getCurrentUrl());
+		//Verifica la url del sitio web
+		Assert.assertEquals(customDriver.getCurrentUrl(), "https://winstoncastillo.com/robot-selenium/");
+		//Verifica el nombre de la página
+		Assert.assertEquals(customDriver.getTitle(), "La tienda de Winston Castillo");
 		//Imprime el nombre de la pagina
 		System.out.println(customDriver.getTitle());
 		//Informacion del carrito en 0
@@ -37,13 +36,13 @@ public class ProductosCarrito {
 		Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"0 item(s) - $0.00");
 		//Informacion Featured
 		WebElement productosVisibles = customDriver.findElement(By.xpath("//*[@id=\"content\"]/div[2]"));
-		System.out.println(productosVisibles.getText());
+		List<WebElement> listaDeProductos = productosVisibles.findElements(By.tagName("h4"));
+		System.out.println(listaDeProductos.size());
 		//Click lista de deseos
 		customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(1) > div > div.button-group > button:nth-child(2)")).click();
 		Thread.sleep(3000);
 		//Mensaje al agregar producto a lista de deseos
-		WebElement messege = customDriver.findElement(By.cssSelector("#common-home > div.alert.alert-success.alert-dismissible"));
-		System.out.println(messege.getText());
+		Assert.assertEquals(customDriver.findElement(By.xpath("//*[@id=\"common-home\"]/div[1]")).getText().substring(0,74), "You must login or create an account to save MacBook Pro to your wish list!");
 		//Click agregar producto al carrito
 		customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(1) > div > div.button-group > button:nth-child(1)")).click();
 		Thread.sleep(3000);
@@ -51,6 +50,7 @@ public class ProductosCarrito {
 		WebElement productoCargado = customDriver.findElement(By.cssSelector("#cart > button"));
 		System.out.println(productoCargado.getText());
 		Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"1 item(s) - $602.00");
+		
 		// CP002 Borrar Elementos del carrito de compras
 		//Click boton carrito
 		customDriver.findElement(By.cssSelector("#cart > button")).click();
@@ -69,6 +69,10 @@ public class ProductosCarrito {
 		Thread.sleep(3000);
 		customDriver.findElement(By.cssSelector("#cart > ul > li:nth-child(2) > div > p > a:nth-child(1) > strong")).click();
 		Thread.sleep(3000);
+		WebElement productoAgregado = customDriver.findElement(By.cssSelector("#cart > button"));
+		System.out.println(productoAgregado.getText());
+		Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"1 item(s) - $123.20");
+		
 		//004 Agregar Productos al carrito y ver carrito
 		customDriver.findElement(By.cssSelector("#logo > h1 > a")).click();
 		Thread.sleep(3000);
@@ -114,3 +118,4 @@ public class ProductosCarrito {
 	}
 
 }
+
