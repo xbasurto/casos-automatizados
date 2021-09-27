@@ -46,16 +46,16 @@ public class CodigoBase {
 				//Imprime el nombre de la pagina
 				System.out.println(customDriver.getTitle());
 				//Informacion del carrito en 0
-				WebElement productosCarrito = customDriver.findElement(By.cssSelector("#cart > button"));
-				System.out.println(productosCarrito.getText());
+				WebElement carritoVacio = repositorio.carritoVacio();
+				System.out.println(carritoVacio.getText());
 				Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"0 item(s) - $0.00");
 	}
 	
 	@Test(dependsOnMethods= {"carritoVacio"})
 	public void productosVisibles() throws InterruptedException {
 				//Informacion Featured
-				WebElement productosVisibles = customDriver.findElement(By.xpath("//*[@id=\"content\"]/div[2]"));
-				List<WebElement> listaDeProductos = productosVisibles.findElements(By.tagName("h4"));
+				WebElement productosVisibles = repositorio.productosVisibles();
+				List<WebElement> listaDeProductos = repositorio.listaDeProductos(productosVisibles);
 				System.out.println(listaDeProductos.size());
 	}
 	
@@ -74,7 +74,7 @@ public class CodigoBase {
 				customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(1) > div > div.button-group > button:nth-child(1)")).click();
 				Thread.sleep(3000);
 				//Informacion del carrito con producto agregado
-				WebElement productoCargado = customDriver.findElement(By.cssSelector("#cart > button"));
+				WebElement productoCargado = repositorio.productoCargado();
 				System.out.println(productoCargado.getText());
 				Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"1 item(s) - $602.00");
 	}
@@ -89,7 +89,7 @@ public class CodigoBase {
 				customDriver.findElement(By.cssSelector("#cart > ul > li:nth-child(1) > table > tbody > tr > td:nth-child(5) > button")).click();
 				Thread.sleep(3000);
 				//Informacion del carrito despues de remover producto
-				WebElement productoRemovido = customDriver.findElement(By.cssSelector("#cart > button"));
+				WebElement productoRemovido = repositorio.productoRemovido();
 				System.out.println(productoRemovido.getText());
 				Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"0 item(s) - $0.00");
 	}
@@ -103,7 +103,7 @@ public class CodigoBase {
 				Thread.sleep(3000);
 				customDriver.findElement(By.cssSelector("#cart > ul > li:nth-child(2) > div > p > a:nth-child(1) > strong")).click();
 				Thread.sleep(3000);
-				WebElement productoAgregado = customDriver.findElement(By.cssSelector("#cart > button"));
+				WebElement productoAgregado = repositorio.productoAgregado();
 				System.out.println(productoAgregado.getText());
 				Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"1 item(s) - $123.20");
 	}
@@ -118,7 +118,7 @@ public class CodigoBase {
 				Thread.sleep(3000);
 				customDriver.findElement(By.cssSelector("#content > div.row > div:nth-child(4) > div > div.button-group > button:nth-child(1)")).click();
 				Thread.sleep(3000);
-				WebElement staticsList = customDriver.findElement(By.id("input-option226"));
+				WebElement staticsList = repositorio.staticsList();
 				Select selectedList = new Select(staticsList);
 				selectedList.selectByVisibleText("Red");
 				System.out.println(selectedList.getFirstSelectedOption().getText());
@@ -129,7 +129,7 @@ public class CodigoBase {
 				Thread.sleep(3000);
 				customDriver.findElement(By.cssSelector("#cart > ul > li:nth-child(2) > div > p > a:nth-child(1) > strong")).click();
 				Thread.sleep(3000);
-				WebElement productosVarios = customDriver.findElement(By.cssSelector("#cart > button"));
+				WebElement productosVarios = repositorio.productosVarios();
 				System.out.println(productosVarios.getText());
 				Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"4 item(s) - $969.20");
 

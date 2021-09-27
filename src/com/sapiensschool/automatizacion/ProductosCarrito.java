@@ -28,8 +28,8 @@ public class ProductosCarrito {
 		//Imprime el nombre de la pagina
 		System.out.println(customDriver.getTitle());
 		//Informacion del carrito en 0
-		WebElement productosCarrito = customDriver.findElement(By.cssSelector("#cart > button"));
-		System.out.println(productosCarrito.getText());
+		WebElement carritoVacio = customDriver.findElement(By.cssSelector("#cart > button"));
+		System.out.println(carritoVacio.getText());
 		Assert.assertEquals(customDriver.findElement(By.id("cart-total")).getText(),"0 item(s) - $0.00");
 		//Informacion Featured
 		WebElement productosVisibles = customDriver.findElement(By.xpath("//*[@id=\"content\"]/div[2]"));
