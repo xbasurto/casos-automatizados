@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="C:/Users/xbasu/Documents/Librerias Selenium/libs/okhttp-3.11.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/xbasu/Documents/Librerias Selenium/libs/okio-1.14.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/xbasu/Documents/Librerias externas/testng-6.7.jar"/>
+	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
